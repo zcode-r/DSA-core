@@ -48,36 +48,50 @@ class Ll{
     }
 };
 
-N* rotate(N* &h,int k){
+int len(N* h){
 
-    N* t=h;
     int c=0;
+    while(h!=NULL){
+        h=h->adr;
+        ++c;
+    }
 
-    while(c<k){
-        if(t==NULL){
-            return h;
+    return c;
+}
+
+ N* intersection(N* h1,N* h2){
+    N* p1=h1;
+    N* p2=h2;
+
+    int len1=len(h1);
+    int len2=len(h2);
+
+    if(len1>len2){
+        int k=len1-len2;
+
+        while(k--){
+            p1=p1->adr;
         }
-        t=t->adr;
-        ++c;
+
+    }
+    else{
+        int k=len2-len1;
+
+        while(k--){
+            p2=p2->adr;
+        }
+
     }
 
-    N* prev=rotate(t,k);
-
-    t=h;
-    c=0;
-
-    while(c<k){
-
-        N* next=t->adr;
-        t->adr=prev;//just linking with the node returned by the recursive fucntion
-
-        prev=t;
-        t=next;
-
-        ++c;
+    while(p1!=NULL && p2!=NULL){
+        if(p1==p2){
+            return p1;
+        }
+        p1=p1->adr;
+        p2=p2->adr;
     }
 
-    return prev;
+    return NULL;
 
 }
 
@@ -91,13 +105,11 @@ int main(){
     l1.insert(4);
     l1.insert(5);
 
-    l1.dis();
+    l2.insert(6);
+    l2.insert(7);
+    
+    l2.head->adr->adr=l1.head->adr->adr;
 
-    cout << "\n";
-
-    l2.head=rotate(l1.head,3);
-
-    l2.dis();
-
+    cout << intersection(l1.head,l2.head);
 
 }

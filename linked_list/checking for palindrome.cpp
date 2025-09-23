@@ -48,36 +48,44 @@ class Ll{
     }
 };
 
-N* rotate(N* &h,int k){
+bool palindrome(N* h){
 
-    N* t=h;
-    int c=0;
+    N* s=h;
+    N* f=h;
 
-    while(c<k){
-        if(t==NULL){
-            return h;
+    //to find middle
+    while(f!=NULL && f->adr!=NULL){
+        s=s->adr;
+        f=f->adr->adr;
+    }
+
+    N* cur=s->adr;
+    N* prv=s;
+    s->adr=NULL;
+
+    //to reverse the second half of the list
+    while(cur!=NULL){
+        N* nxt=cur->adr;
+
+        cur->adr=prv;
+        prv=cur;
+        cur=nxt;
+        
+    }
+
+    N* h1=h;
+    N* h2=prv;
+
+    while(h2!=NULL){
+        if(h1->d!=h2->d){
+            return false;
         }
-        t=t->adr;
-        ++c;
+
+        h1=h1->adr;
+        h2=h2->adr;
     }
 
-    N* prev=rotate(t,k);
-
-    t=h;
-    c=0;
-
-    while(c<k){
-
-        N* next=t->adr;
-        t->adr=prev;//just linking with the node returned by the recursive fucntion
-
-        prev=t;
-        t=next;
-
-        ++c;
-    }
-
-    return prev;
+    return true;
 
 }
 
@@ -87,17 +95,9 @@ int main(){
 
     l1.insert(1);
     l1.insert(2);
-    l1.insert(3);
-    l1.insert(4);
-    l1.insert(5);
+    //l1.insert(3);
+    l1.insert(2);
+    l1.insert(1);
 
-    l1.dis();
-
-    cout << "\n";
-
-    l2.head=rotate(l1.head,3);
-
-    l2.dis();
-
-
+    cout << palindrome(l1.head);
 }

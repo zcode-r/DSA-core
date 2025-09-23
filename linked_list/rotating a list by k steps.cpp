@@ -50,34 +50,28 @@ class Ll{
 
 N* rotate(N* &h,int k){
 
-    N* t=h;
-    int c=0;
+    N* temp=h;
+    int c=1;
 
-    while(c<k){
-        if(t==NULL){
-            return h;
-        }
-        t=t->adr;
+    while(temp->adr!=NULL){
+        temp=temp->adr;
+        ++c;
+    }
+    k%=c;
+
+    temp->adr=h;
+
+    int a=c-k;c=1;
+
+    while(c!=a){
+        h=h->adr;
         ++c;
     }
 
-    N* prev=rotate(t,k);
+    N* n=h->adr;
+    h->adr=NULL;
 
-    t=h;
-    c=0;
-
-    while(c<k){
-
-        N* next=t->adr;
-        t->adr=prev;//just linking with the node returned by the recursive fucntion
-
-        prev=t;
-        t=next;
-
-        ++c;
-    }
-
-    return prev;
+    return n;
 
 }
 
@@ -98,6 +92,5 @@ int main(){
     l2.head=rotate(l1.head,3);
 
     l2.dis();
-
 
 }

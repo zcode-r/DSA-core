@@ -104,3 +104,18 @@ int main(){
 
 
 }
+
+/*
+N* sp1(N* &h){
+
+    if(h==NULL || h->adr==NULL){
+        return h;
+    }
+
+    N* sec=h->adr;
+    h->adr=sp1(sec->adr);
+    sec->adr=h;
+    return sec;
+
+}
+*/

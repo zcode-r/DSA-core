@@ -15,10 +15,11 @@ class N{
 };
 
 class Dl{
+    public:
+
     N* head;
     N* tail;
 
-    public:
 
     Dl(){
         head=tail=NULL;
@@ -108,6 +109,56 @@ class Dl{
 
     }
 
+    void insert(int val,int k){
+        N* node=new N(val);
+        int c=0;
+
+        if(k==0){
+            push_front(val);
+            return;
+        }
+
+        N* t=head;
+        
+        while(c!=k-1){
+            t=t->next;
+            ++c;
+        }
+
+        N* n=t->next;
+        t->next=node;
+        node->pre=t;
+        node->next=n;
+    }
+
+    void del(int k){
+
+        if(k==0){
+            pop_front();
+            return;
+        }
+
+        N* t=head;
+        int c=0;
+
+        while(c!=k){
+            t=t->next;
+            ++c;
+        }
+
+        if(t->next==NULL){
+            pop_back();
+            return;
+        }
+
+        N* prv=t->pre;
+        prv->next=t->next;
+        t->next->pre=prv;
+        t->next=t->pre=NULL;
+
+        delete t;
+    }
+
     void dis(){
 
         N* t=head;
@@ -118,6 +169,20 @@ class Dl{
         }
     }
 
+    void reverse(N* &h,N* &t){
+        N* cur=h;
+
+        while(cur){
+            N* n=cur->next;
+            cur->next=cur->pre;
+            cur->pre=n;
+            cur=n;
+        }
+
+        N* swp=t;
+        t=h;
+        h=swp;
+    }
 };
 
 int main(){
@@ -136,9 +201,9 @@ dl.push_back(4);
 
 dl.dis();
 
-//dl.pop_front();
-
-dl.pop_back();
+// dl.insert(5,0);
+//dl.del(3);
+dl.reverse(dl.head,dl.tail);
 
 cout << "\n";
 

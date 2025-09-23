@@ -148,3 +148,77 @@ int main(){
     travel(o);
 
 }
+
+/*
+
+delete at kth from front
+
+void del(N* &h,int k){
+
+    N* t=h;
+    N* pre=NULL;
+    int c=1;
+
+    if(k==1){
+        h=h->adr;
+        delete t;
+        return;
+    }
+
+    while(c!=k){
+
+        pre=t;
+        t=t->adr;
+        ++c;
+
+    }
+
+    pre->adr=t->adr;
+    t->adr=NULL;
+
+    delete t;
+}
+
+///////////////////////////////////////////////////////////////
+
+delete at kth node form tail
+
+int len(N* h){
+
+    int c=0;
+    while(h!=NULL){
+        h=h->adr;
+        ++c;
+    }
+
+    return c;
+}
+
+void del(N* &h,int k){
+
+    int l=len(h);
+
+    if(k==l){
+        N* a=h;
+        h=h->adr;
+        delete a;
+        return;
+    }
+
+    N* t=h;
+    int c=1;
+    k=l-k;
+
+    while(c!=k){
+        t=t->adr;
+        ++c;
+    }
+
+    N* d=t->adr;
+    t->adr=d->adr;
+    d->adr=NULL;
+
+    delete d;
+}
+
+*/
