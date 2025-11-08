@@ -134,3 +134,44 @@ int main() {
 //         cout << "} ";
 //     }
 // }
+
+
+///////////////////////////////////////////////////////////////////
+
+// Permutations in array duplicates without duplicates
+
+
+
+// class Solution {
+// public:
+
+// void rec(vector<int>&arr, vector<vector<int>>&ans, int i){
+//     if(i==arr.size()){
+//         ans.push_back(arr);
+//         return;
+//     }
+
+//     unordered_set<int>used;
+
+//     for(int k=i; k<arr.size(); ++k){
+
+//         if(used.count(arr[k])) continue;
+        
+//         used.insert(arr[k]);
+
+//         swap(arr[k],arr[i]);
+//         rec(arr,ans,i+1);
+//         swap(arr[k],arr[i]); 
+//     }
+// }
+
+//     vector<vector<int>> permuteUnique(vector<int>& nums) {
+
+//         vector<vector<int>>ans;
+//         sort(nums.begin(),nums.end());
+
+//         rec(nums,ans,0);
+
+//         return ans;
+//     }
+// };
