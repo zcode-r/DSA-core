@@ -15,9 +15,33 @@ class Graph{
 
 
         void addedge(int u,int v){
-            l[u].push_back(v);
-            l[v].push_back(u);
+            l[u].push_back(v);  //for directed graph
+           // l[v].push_back(u);
         }
+
+        //FOR DIRECTED GRAPH
+
+        bool iscycledfsdir(int u,vector<bool>&vis,vector<bool>&rec){
+            vis[u]=true;
+            rec[u]=true;
+
+            for(int v:l[u]){
+                if(!vis[v]){
+                    if(iscycledfsdir(v,vis,rec)){
+                        return true;
+                    }
+                }
+                else if(rec[v]){
+                    return true;
+                }
+            }
+
+            rec[u]=false;
+
+            return false;
+        }
+
+        //FOR UNDIRECTED GRAPH
 
         bool iscycledfs(int u,int par,vector<bool>&vis){
             vis[u]=true;
@@ -62,13 +86,17 @@ class Graph{
 
         bool iscycle(){
             vector<bool>vis(V,false);
+            vector<bool>rec(V,false);
 
             for(int i=0; i<V; ++i){
                 if(!vis[i]){
                     // if(iscycledfs(i,-1,vis)){
                     //     return true;
                     // }
-                     if(iscyclebfs(i,vis)){
+                    //  if(iscyclebfs(i,vis)){
+                    //     return true;
+                    // }
+                    if(iscycledfsdir(i,vis,rec)){
                         return true;
                     }
                 }
@@ -79,13 +107,26 @@ class Graph{
 };
 
 int main(){
-    Graph g(5);
 
-    g.addedge(0,1);
+    //FOR UNDIRECTED GRAPH
+
+    // Graph g(5);
+
+    // g.addedge(0,1);
+    // g.addedge(0,2);
+    // g.addedge(0,3);
+    // g.addedge(1,2);
+    // g.addedge(3,4);
+
+
+    //FOR DIRECTED GRAPH
+
+    Graph g(4);
+
+    g.addedge(1,0);
     g.addedge(0,2);
-    g.addedge(0,3);
-    g.addedge(1,2);
-    g.addedge(3,4);
+    g.addedge(2,3);
+    g.addedge(3,0);
 
     cout << g.iscycle();
 
