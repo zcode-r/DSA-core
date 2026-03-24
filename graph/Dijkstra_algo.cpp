@@ -65,3 +65,107 @@ int main(){
     dijkstra(0,g,V);
 
 }
+
+
+
+//////////////////////////////////////////////////////////////////
+
+//USING PQ
+
+/*
+class Solution {
+  public:
+    vector<int> dijkstra(int V, vector<vector<int>> &edges, int src) {
+        // Code here
+        
+        vector<vector<pair<int,int>>> adj(V);
+        
+        for(auto &e : edges){
+            int u=e[0], v=e[1], w=e[2];
+            adj[u].push_back({v,w});
+            adj[v].push_back({u,w}); 
+        }
+
+        
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        
+        vector<int>ans(V,INT_MAX);
+        ans[src]=0;
+        
+        pq.push({0,src});
+        
+        while(!pq.empty()){
+            int dist=pq.top().first;
+            int node=pq.top().second;
+            pq.pop();
+            
+            for(auto &i:adj[node]){
+                int n=i.first;
+                int d=i.second;
+                
+                if(d+dist<ans[n]){
+                    ans[n]=d+dist;
+                    pq.push({d+dist,n});
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+*/
+
+
+//////////////////////////////////////////////////////////////
+
+//USING SET
+
+/*
+class Solution {
+  public:
+    vector<int> dijkstra(int V, vector<vector<int>> &edges, int src) {
+        // Code here
+        
+        vector<vector<pair<int,int>>> adj(V);
+        
+        for(auto &e : edges){
+            int u=e[0], v=e[1], w=e[2];
+            adj[u].push_back({v,w});
+            adj[v].push_back({u,w}); 
+        }
+
+        
+        set<pair<int,int>>s;
+        
+        vector<int>ans(V,INT_MAX);
+        ans[src]=0;
+        
+        s.insert({0,src});
+        
+        while(!s.empty()){
+
+            auto &it=*s.begin();
+            int dist=it.first;
+            int node=it.second;
+            s.erase(it);
+            
+            for(auto &i:adj[node]){
+                int n=i.first;
+                int d=i.second;
+                
+                if(d+dist<ans[n]){
+
+                    if(ans[n]!=INT_MAX){
+                        s.erase({ans[n],n});
+                    }
+
+                    ans[n]=d+dist;
+                    s.insert({d+dist,n});
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+*/
